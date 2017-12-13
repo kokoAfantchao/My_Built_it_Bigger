@@ -10,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                    includeCompileClasspath true
+                }
+            }
+
     }
     buildTypes {
         release {
@@ -21,6 +28,8 @@ android {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
     }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

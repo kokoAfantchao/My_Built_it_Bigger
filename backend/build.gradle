@@ -30,6 +30,22 @@ dependencies {
     compile 'com.google.http-client:google-http-client-android:1.23.0'
     compile project(':jokesProvider')
 }
+task copyBackEndApiLib(type: Copy,) {
+
+
+ }
+task unzipApiZip(type: Copy){
+    def zipFile = file("${buildDir}/client-libs/myApi-v1-java.zip")
+    def outputDir = file("${buildDir}/client-libs/")
+    from zipTree(zipFile)
+    into outputDir
+
+   }
+task installTask(type :Exec){
+    commandLine '.gradle install'
+    workingDir "${buildDir}/client-libs/myApi-v1-java/"
+}
+
 
 appengine {
     downloadSdk = true
