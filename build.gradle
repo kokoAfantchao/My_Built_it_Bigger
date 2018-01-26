@@ -19,3 +19,25 @@ allprojects {
         google()
     }
 }
+task extractApiZip(type: Exec) {
+    doFirst {
+        delete("${buildDir}/../backend/output")
+    }
+    workingDir "${buildDir}/../backend/build/client-libs/"
+    commandLine 'unzip', 'myApi-v1-java.zip','-d', "${buildDir}/../backend/output"
+
+}
+
+task installTask(type : Exec){
+   //dependsOn extractApiZip
+
+    doLast {
+        copy {
+
+
+        }
+    }
+    workingDir file("${buildDir}/../backend/output/myapi/")
+    commandLine 'gradle','install'
+
+}

@@ -13,9 +13,11 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                    includeCompileClasspath true
-                }
+                includeCompileClasspath true
             }
+        }
+        multiDexEnabled true
+
 
     }
     buildTypes {
@@ -23,21 +25,49 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
     }
+    flavorDimensions 'common'
+    productFlavors {
+        free {
+            applicationId 'com.udacity.gradle.builditbigger.free'
+            versionNameSuffix '_free'
+            dimension 'common'
+
+
+        }
+        paid {
+            applicationId 'com.udacity.gradle.builditbigger.paid'
+            versionNameSuffix '_paid'
+            dimension 'common'
+        }
+    }
+}
+
+ext {
+
+    espressoVersion = '2.2.2'
 }
 
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:support-v4:25.4.0'
+    freeImplementation 'com.google.android.gms:play-services-ads:11.8.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation project(path: ':backend', configuration: 'android-endpoints')
+    implementation project(':jokeslibrary')
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:' + espressoVersion
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:' + espressoVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.google.android.gms:play-services-ads:9.8.0'
-    compile project(':backend')
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:' + espressoVersion
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:' + espressoVersion
 }
