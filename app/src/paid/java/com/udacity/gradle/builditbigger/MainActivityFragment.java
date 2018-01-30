@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-
+import com.push.jokeslibrary.JockesActivity;
 import com.udacity.gradle.builditbigger.R;
 
 
@@ -28,5 +29,9 @@ public class MainActivityFragment extends Fragment {
 
     public void setmJokes(String mJokes) {
         this.mJokes = mJokes;
+        Intent intent = new Intent(getContext(),JockesActivity.class);
+        intent.putExtra(JockesActivity.JOKE_EXTRA, mJokes);
+        startActivity(intent);
+
     }
 }

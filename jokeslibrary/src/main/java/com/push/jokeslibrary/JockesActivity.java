@@ -19,6 +19,6 @@ public class JockesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jockes);
         String mJokeExtra = getIntent().getStringExtra(JOKE_EXTRA);
         mJokeTextView =( TextView)findViewById(R.id.joke_tv);
-        if( mJokeExtra != null )mJokeTextView.setText(mJokeExtra);
+        if(getIntent().hasExtra(JOKE_EXTRA)) mJokeTextView.setText(mJokeExtra);
     }
 }

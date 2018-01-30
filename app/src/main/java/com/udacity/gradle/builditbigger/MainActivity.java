@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
         MainActivityFragment fragmentById = (MainActivityFragment) getSupportFragmentManager()
                   .findFragmentById(R.id.fragment);
         fragmentById.setmJokes(messag);
-
     }
 
 

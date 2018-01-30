@@ -5,6 +5,7 @@ import android.app.Instrumentation;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
@@ -34,11 +35,18 @@ public class MainActivityTest {
     @Rule
     public IntentsTestRule<MainActivity>  activityIntentsTestRule = new IntentsTestRule<MainActivity>(MainActivity.class);
     private CustomIdlingResource  mIdlingResource;
-    private static final  String PACKAGE_NAME= "com.udacity.gradle.builditbigger";
+    private static String PACKAGE_NAME= "com.udacity.gradle.builditbigger";
 
     @Before
     public void subAllInternalIntent() throws Exception {
         intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
+    }
+    @Before
+    public void setPackageName(){
+        if (BuildConfig.FLAVOR.equals("free"))
+            PACKAGE_NAME+=".free";
+        else
+            PACKAGE_NAME+=".paid";
     }
 
     @Before
@@ -58,6 +66,7 @@ public class MainActivityTest {
         ViewInteraction viewInteraction = Espresso.onView(ViewMatchers.withId(R.id.button_action_show_jockes));
         viewInteraction.perform(ViewActions.click());
         intended(AllOf.allOf(hasExtraWithKey("joke_ extra"),toPackage(PACKAGE_NAME)));
+        Espresso.onView(ViewMatchers.withId(R.id.joke_tv)).check(ViewAssertions.matches(not(ViewMatchers.withText(""))));
     }
 
 }

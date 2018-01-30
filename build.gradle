@@ -34,10 +34,22 @@ task installTask(type : Exec){
     doLast {
         copy {
 
-
         }
     }
     workingDir file("${buildDir}/../backend/output/myapi/")
     commandLine 'gradle','install'
+
+}
+
+task globaleTest(){
+    dependsOn = ['backend:appengineRun','app:test']
+    project(":backend").afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
+
+    task('app:test').mustRunAfter('backend:appengineRun')
+
+
+    finalizedBy 'backend:appengineStop'
 
 }

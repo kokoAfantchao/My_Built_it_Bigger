@@ -2,6 +2,8 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,10 +41,16 @@ public class MainActivityFragment extends Fragment {
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                Intent intent = new Intent(getContext(),JockesActivity.class);
-                intent.putExtra(JockesActivity.JOKE_EXTRA, mJokes);
-                startActivity(intent);
+
             }
+
+            @Override
+            public void onAdOpened() {
+
+
+            }
+
+
 
         });
 
@@ -60,8 +68,13 @@ public class MainActivityFragment extends Fragment {
 
     public void setmJokes(String jokes ){
         mJokes = jokes;
+        Intent intent = new Intent(getContext(),JockesActivity.class);
+        intent.putExtra(JockesActivity.JOKE_EXTRA, mJokes);
+        startActivity(intent);
         mInterstitialAd.show();
     }
+
+
 
 
 }
