@@ -12,8 +12,8 @@ jar.manifest.attributes("Built-By": "Google")
 jar.manifest.attributes("Build-Jdk": "1.6.x")
 
 task sourceJar(type: Jar) {
-  classifier = 'sources'
-  from sourceSets.main.allJava
+    classifier = 'sources'
+    from sourceSets.main.allJava
 }
 
 artifacts {
@@ -25,5 +25,5 @@ repositories {
 }
 
 dependencies {
-    compile ([group: 'com.google.api-client', name: 'google-api-client', version: '1.23.0'])
+    compile([group: 'com.google.api-client', name: 'google-api-client', version: '1.23.0'])
 }
